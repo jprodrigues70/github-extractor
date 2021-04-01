@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  # The laravel application
+  php-fpm:
+    container_name: mailer_php
+    build:
+      context: ./
+      dockerfile: docker/php-fpm/Dockerfile
+      args:
+        - GITLAB_GID=1000
+        - GITLAB_UID=1000
+    user: "1000:1000"
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www:cached
+volumes:
+  dbdata:
