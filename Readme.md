@@ -1,4 +1,6 @@
-# Automatização extremamente simples de envio de e-mails, e nem um pouco preocupada com padrões de projeto ou padrões de código.
+# Automatização extremamente simples de envio de e-mails utilizando Gmail.
+
+Esse script utiliza o Gmail, então você vai precisar autorizar a execução do script na conta que enviará os e-mails. Recomendo que não utilize sua conta pessoal de maneira alguma. Você vai ter que desativar a autenticação em 2 fatores, e depois liberar o acesso de 'less secure apps' aqui https://myaccount.google.com/u/0/lesssecureapps.
 
 1- Faça sua busca por usuários no github, como por exemplo:
 
@@ -16,11 +18,17 @@ find(100)
 
 4- Quando o total mínimo for atingido, ou acabarem as páginas, um arquivo CSV será baixado (`emails.csv`).
 
-5- Mova o arquivo para a pasta do projeto, substituindo o arquivo original.
+5- Mova o arquivo para a pasta `recipients-csv`, no projeto.
 
-6- No `mail.php` preencha as variáveis $email, $password, $content, $from e $fromName.
+6- Copie o `.env-example` para um arquivo chamado `.env`
 
-7- Rodar o docker
+```
+cp .env-example .env
+```
+
+7- Atualize o valor das variáveis do `.env` para os seus valores pessoais.
+
+8- Rodar o docker
 
 ```
 docker-compose build
@@ -28,8 +36,24 @@ docker-compose up -d
 docker exec -it mailer_php /bin/bash
 ```
 
-8- No bash do docker
+9- No bash do docker
 
 ```
-php mail.php
+php mail send
 ```
+
+### Limpar tudo
+
+Caso resolva mandar um novo tipo de e-mail para um novo conjunto de usuários, e evitar perdas, salve todos os dados do envio anterior num local seguro, e apague todos os arquivos de `sentlist-csv`, `recipients-csv`, e se desejar de `blacklist-csv`.
+
+### Blacklist
+
+Você pode preencher sua blacklist de e-mails em `blacklist-csv/blacklist.csv`. Insira apenas e-mails, e separe-os com enter.
+
+### E-mails enviados
+
+Os endereços para os quais e-mails já foram enviados ficam guardados em `sentlist-csv`, evitando assim envios duplicados
+
+### Log
+
+E-mails que deram erro de imediato são registrados em `log`
