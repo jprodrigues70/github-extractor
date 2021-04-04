@@ -98,7 +98,7 @@ class Mailer
         $message = $this->parseMessage();
 
         $mail->MsgHTML($message);
-        echo "....";
+        echo "     ";
         if (!$mail->Send()) {
             echo "\033[31mFAIL!\033[0m\n" . "      $mail->ErrorInfo";
             $file = __DIR__ . '/../log/' . date('Y-m-d') . '.csv';

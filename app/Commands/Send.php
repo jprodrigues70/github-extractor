@@ -43,17 +43,30 @@ class Send extends Command
 
             $recipients = RecipientsCsv::list($csv);
             foreach ($recipients as $recipient) {
-                if ($i % (int)$this->option('bucket') === 0 && $i !== 0) {
-                    $wait = rand((int)$this->option('bucket-i'), (int)$this->option('bucket-m'));
-                    echo "$i - VAMOS ESPERAR $wait segundos";
+                if ($i === 500) {
+                    print("\n\nYou can't send more than 500 emails per day\n\n");
+                    die();
+                }
+
+                if ($i % (int)$this->option('-bucket') === 0 && $i !== 0) {
+                    $wait = rand((int)$this->option('-bucket-i'), (int)$this->option('-bucket-m'));
+                    echo "\nBucket completed! {$wait} to the next email\n\n";
                     sleep($wait);
                 }
 
-                if ($i !== 0) {
-                    sleep(rand((int)$this->option('i'), (int)$this->option('m')));
-                }
 
                 if (!in_array($recipient->email, $blacklist) && !in_array($recipient->email, $sentlist)) {
+
+                    if ($i !== 0) {
+                        $wait = rand((int)$this->option('-i'), (int)$this->option('-m'));
+                        echo "     {$wait}s to the next email ";
+                        for ($j = 0; $j < $wait; $j++) {
+                            echo ".";
+                            sleep(1);
+                        }
+                        echo "\n";
+                    }
+
                     $i = $i + 1;
                     $this->output("$recipient->email", "  " . $i . "- ");
                     $mail = new Mailer();
@@ -61,6 +74,7 @@ class Send extends Command
                     SentlistCsv::put($recipient, $csv);
                 }
             }
+            rename($sentPath, str_replace('.csv', '.txt', $sentPath));
         }
     }
 }
