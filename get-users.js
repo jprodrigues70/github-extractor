@@ -1,3 +1,17 @@
+// 1- Esse script é um modo mais manual de resolver as coisas. Utilize em caso de emergência.
+
+// 2- Abra o console do navegador, e cole o código que está em `get-users.js`
+
+// 3- No console do navegador, digite `find(n)`, onde n é o total mínimo de usuários que você deseja, ou seja, pode ter mais que n, mas não pode ter menos. Ex:
+
+// ```
+// find(100)
+// ```
+
+// 4- Quando o total mínimo for atingido, ou acabarem as páginas, um arquivo CSV será baixado (`emails.csv`).
+
+// 5- Mova o arquivo para a pasta `recipients-csv`, no projeto.
+
 const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 const find = (totalMin = 2, users = []) => {

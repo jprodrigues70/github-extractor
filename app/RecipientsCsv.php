@@ -16,4 +16,21 @@ class RecipientsCsv extends CsvController
             return new Recipient($item[1], $item[0]);
         }, $list);
     }
+
+    public static function listAllEmails($file = '', $join = false, $unique = true, $emailKey = 1): array
+    {
+        $csvs = self::scanFolder();
+        $recipients = [];
+
+        foreach ($csvs as $csv) {
+            $list = parent::list($csv, $join, $unique, $emailKey);
+            $emails = array_map(function ($item) {
+                return $item[1];
+            }, $list);
+
+            $recipients = array_merge($recipients, $emails);
+        }
+
+        return $recipients;
+    }
 }
