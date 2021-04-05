@@ -37,6 +37,7 @@ class Send extends Command
         foreach ($csvs as $csv) {
             $this->outputSuccess($csv, '- ');
             $sentPath = __DIR__ . '/../../sentlist-csv/' . $csv;
+            $recipientPath = __DIR__ . '/../../recipients-csv/' . $csv;
             if (!file_exists($sentPath)) {
                 touch($sentPath);
             }
@@ -74,7 +75,7 @@ class Send extends Command
                     SentlistCsv::put($recipient, $csv);
                 }
             }
-            rename($sentPath, str_replace('.csv', '.txt', $sentPath));
+            rename($recipientPath, str_replace('.csv', '.txt', $recipientPath));
         }
     }
 }
