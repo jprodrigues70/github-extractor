@@ -122,10 +122,10 @@ class ExploreGithub extends Command
             echo "\n\n";
             $this->search($uri, $nextPage);
         } else if ($this->total) {
-            $this->outputSuccess("Total: {$this->total} new emails on {$this->fileName}.csv!", '\n');
+            $this->outputSuccess("Total: {$this->total} new emails on {$this->fileName}.csv!", "\n");
             rename($path, "$path.csv");
         } else {
-            $this->outputSuccess("Total: 0 new emails!", '\n');
+            $this->outputSuccess("Total: 0 new emails!", "\n");
         }
     }
 }
