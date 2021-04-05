@@ -26,7 +26,7 @@ GITHUB_SEARCH="?q=location%3ABrazil+language%3APHP&type=Users&ref=advsearch&l=PH
 
 6- Atualize o valor das demais variáveis do `.env` para os seus valores pessoais.
 
-8- Rodar o docker
+7- Rodar o docker
 
 ```
 docker-compose build
@@ -34,7 +34,7 @@ docker-compose up -d
 docker exec -it mailer_php /bin/bash
 ```
 
-9- No bash do docker
+8- No bash do docker
 
 ```
 php mail explore-github
