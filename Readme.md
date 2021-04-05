@@ -20,7 +20,7 @@ https://github.com/search?q=location%3ABrazil+language%3APHP&type=Users&ref=advs
 GITHUB_SEARCH="?q=location%3ABrazil+language%3APHP&type=Users&ref=advsearch&l=PHP"
 ```
 
-4- Obtenha um token do Github. Para criar um token no GitHub, basta acessar (https://github.com/settings/tokens)[https://github.com/settings/tokens].
+4- Obtenha um token do Github. Para criar um token no GitHub, basta acessar https://github.com/settings/tokens.
 
 5- Preencha a variável `GITHUB_TOKEN` do `.env` com o token que você obteve.
 
