@@ -15,6 +15,7 @@ class ExploreGithub extends Command
     private $fileName = '';
     private $sentPath =  __DIR__ . '/../../recipients-csv';
     private $total = 0;
+    private $founds = 0;
     public function help()
     {
         print("Get e-mails from Github and create recipients-csv\n\n");
@@ -29,6 +30,16 @@ class ExploreGithub extends Command
     public function handle()
     {
         $items = RecipientsCsv::scanFolder();
+
+        $items = array_map(function ($item) {
+            $value = str_replace('.csv', '', $item);
+            return is_numeric($value) ? (int)$value : null;
+        }, $items);
+        $items = array_filter($items, function ($item) {
+            return $item;
+        });
+
+        sort($items);
 
         if (count($items)) {
             $lastItem = str_replace('.csv', '', end($items));
@@ -78,6 +89,7 @@ class ExploreGithub extends Command
                 $profileContent = json_decode($profileResult->getBody()->getContents());
 
                 if (!empty($profileContent->email)) {
+                    $this->founds = $this->founds + 1;
                     $line = [];
                     $nameParts = explode(' ', $profileContent->name);
                     $line[] = trim($nameParts[0]);
@@ -122,10 +134,11 @@ class ExploreGithub extends Command
             echo "\n\n";
             $this->search($uri, $nextPage);
         } else if ($this->total) {
-            $this->outputSuccess("Total: {$this->total} new emails on {$this->fileName}.csv!", "\n");
+            $this->outputSuccess("Total: {$this->total} new emails on {$this->fileName}.csv from {$this->founds} found!", "\n");
             rename($path, "$path.csv");
         } else {
-            $this->outputSuccess("Total: 0 new emails!", "\n");
+            $this->outputSuccess("Total: 0 new emails from {$this->founds} found!", "\n");
         }
+        echo "\n{$content->total_count} results\n";
     }
 }
