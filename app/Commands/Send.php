@@ -11,7 +11,7 @@ use App\SentlistCsv;
 class Send extends Command
 {
     protected $arguments = [];
-    protected $options = ['-i' => 4, '-m' => 15, '-bucket' => 40, '-bucket-i' => 1800, '-bucket-m' => 3600];
+    protected $options = ['-i' => 4, '-m' => 15, '-pfx' => 'users-', '-bucket' => 40, '-bucket-i' => 1800, '-bucket-m' => 3600];
 
     public function help()
     {
@@ -20,6 +20,7 @@ class Send extends Command
         print("Example: php mail send -i=4 -m=8\n\n");
         print("Options:\n");
         $mask = "%11.9s %7.5s\t%-30s\n";
+        printf($mask, "-pfx", "<str>", "recipient file prefix (default: users-)");
         printf($mask, "-i", "<int>", "minimum interval between 2 e-mails in seconds (default: 4s)");
         printf($mask, "-m", "<int>", "maximum interval between 2 e-mails in seconds (default: 15s)");
         printf($mask, "-bucket", "<int>", "bucket size to deliver e-mails (It's a strategy to prevent to be target as spam, default is 40)");
@@ -31,7 +32,7 @@ class Send extends Command
     {
         $blacklist = BlacklistCsv::list();
         $sentlist = SentlistCsv::list();
-        $csvs = RecipientsCsv::scanFolder();
+        $csvs = RecipientsCsv::scanFolder($this->option('-pfx'));
 
         $i = 0;
         foreach ($csvs as $csv) {

@@ -14,17 +14,17 @@ class CsvController
         return __DIR__ . "/../../{$location}";
     }
 
-    public static function scanFolder(): array
+    public static function scanFolder($prefix = ''): array
     {
         $location = static::getLocation();
 
         if (!is_dir($location)) {
             throw new Exception("Folder not found!");
         }
-
-        $csvs = array_filter(scandir($location), function ($item) {
+        $csvs = array_filter(scandir($location), function ($item) use ($prefix) {
             $arr = explode('.', $item);
-            return count($arr) >= 2 && strtolower(end($arr)) === 'csv';
+            $pfx = !empty($prefix) ? explode($prefix, $item) : null;
+            return count($arr) >= 2 && strtolower(end($arr)) === 'csv' && (is_null($pfx) || empty($pfx[0]));
         });
 
         return $csvs;

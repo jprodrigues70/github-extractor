@@ -26,7 +26,7 @@ class GithubUsers extends GithubSearchCommand
         printf($mask, "-m", "<int>", "minimum total of {$this->target} (default: 1000)");
         printf($mask, "-rc-key", "<str>", "recipient unique key (default: email)");
         printf($mask, "-bl-key", "<str>", "blacklist-related key (default: email)");
-        printf($mask, "-pfx", "<str>", "recipient file prefix");
+        printf($mask, "-pfx", "<str>", "recipient file prefix (default: users-)");
     }
 
     protected function mountLine(object $model): array

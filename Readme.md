@@ -34,14 +34,19 @@ docker-compose up -d
 docker exec -it mailer_php /bin/bash
 ```
 
-8- No bash do docker
+8- No bash do docker, para capturar e-mails de usuários
 
 ```
-php mail explore-github
+php mail github-users
+```
+
+8- No bash do docker, para enviar e-mails para os usuários
+
+```
 php mail send
 ```
 
-### php mail explore-github
+### php mail github-users
 
 Esse comando vai buscar por novos e-mails no GitHub, filtrando sempre aqueles que estão na blacklist, ou na recipients-csv ou na sentlist-csv.
 
@@ -50,7 +55,7 @@ O comando aceita a opção `-m` na qual você determina o total mínimo de e-mai
 Ex:
 
 ```
-php mail explore-github -m=50
+php mail github-users -m=50
 ```
 
 Para saber mais:

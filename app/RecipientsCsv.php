@@ -17,9 +17,9 @@ class RecipientsCsv extends CsvController
         }, $list);
     }
 
-    public static function listAllUniqueKeys($file = '', $join = false, $unique = true, $uniqueKeyPosition = 1): array
+    public static function listAllUniqueKeys($prefix = '', $join = false, $unique = true, $uniqueKeyPosition = 1): array
     {
-        $csvs = self::scanFolder();
+        $csvs = self::scanFolder($prefix);
         $recipients = [];
 
         foreach ($csvs as $csv) {

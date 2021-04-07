@@ -20,7 +20,7 @@ abstract class GithubSearchCommand extends Command
 
     public function handle()
     {
-        $items = RecipientsCsv::scanFolder();
+        $items = RecipientsCsv::scanFolder($this->option('-pfx'));
 
         $items = array_map(function ($item) {
             $value = str_replace('.csv', '', $item);
@@ -95,7 +95,7 @@ abstract class GithubSearchCommand extends Command
                         return $item->{$rcKey};
                     }, RecipientsCsv::list($this->fileName));
 
-                    $recipients = array_merge($recipients, RecipientsCsv::listAllUniqueKeys());
+                    $recipients = array_merge($recipients, RecipientsCsv::listAllUniqueKeys($this->option('-pfx')));
 
                     if (!in_array($model->{$rcKey}, $recipients) && !in_array($model->{$rcKey}, $sentlist)) {
                         if (!$this->inBlacklist($model)) {
