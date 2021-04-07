@@ -61,7 +61,7 @@ php mail github-users -m=50
 Para saber mais:
 
 ```
-php mail send --help
+php mail github-users --help
 ```
 
 ### php mail send
@@ -72,6 +72,24 @@ Para saber mais:
 
 ```
 php mail send --help
+```
+
+### php mail github-repos
+
+Esse comando vai buscar por novos repositórios no GitHub, filtrando sempre aqueles que estão na blacklist, ou na recipients-csv ou na sentlist-csv.
+
+O comando aceita a opção `-m` na qual você determina o total mínimo de repositórios que você quer pegar. Assim, caso hajam resultados suficientes, ele só irá pegar repositório até a página que ele pegou o repositório número `-m`, podendo assim pegar mais que `-m`. Caso não hajam resultados suficientes, ficará com menos repositórios que `-m`. O padrão é 1000.
+
+Ex:
+
+```
+php mail github-repos -m=50
+```
+
+Para saber mais:
+
+```
+php mail github-repos --help
 ```
 
 ### Limpar tudo
