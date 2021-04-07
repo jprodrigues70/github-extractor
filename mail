@@ -11,6 +11,14 @@ function env($string, $default = '')
     return $_ENV[$string] ?? $default;
 }
 
+function dd($item)
+{
+    echo "\n";
+    print_r($item);
+    echo "\n";
+    die;
+}
+
 if (!empty($argv) && !empty($argv[1])) {
     $arg = $argv[1];
 

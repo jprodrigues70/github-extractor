@@ -10,17 +10,21 @@ abstract class Command
     protected $optionsStack = [];
     protected $arguments = [];
     protected $options = [];
+    protected $deprecated = null;
 
-    private $OKGREEN = "\033[92m";
-    private $INFO = "\033[93m";
-    private $ENDC = "\033[0m";
+    protected $SUCCESS = "\033[32m";
+    protected $INFO = "\033[93m";
+    protected $ENDC = "\033[0m";
+    protected $FAIL = "\033[31m";
 
     public function __construct($name, ...$params)
     {
         if (method_exists($this, 'handle')) {
             $this->config($params);
             $this->prepare(...$params);
-
+            if ($this->deprecated) {
+                $this->outputFail("\n{$this->deprecated}\n");
+            }
             if (in_array('--help', $params)) {
                 $this->help();
                 die();
@@ -87,8 +91,13 @@ abstract class Command
         print("$prefix{$message}\n");
     }
 
-    protected function outputSuccess($message, $prefix)
+    protected function outputSuccess($message, $prefix = '')
     {
-        print("\033[32m$prefix{$message}\033[0m\n");
+        print("{$this->SUCCESS}$prefix{$message}{$this->ENDC}\n");
+    }
+
+    protected function outputFail($message, $prefix = '')
+    {
+        print("{$this->FAIL}$prefix{$message}{$this->ENDC}\n");
     }
 }

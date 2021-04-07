@@ -44,8 +44,8 @@ class Send extends Command
 
             $recipients = RecipientsCsv::list($csv);
             foreach ($recipients as $recipient) {
-                if ($i === 500) {
-                    print("\n\nYou can't send more than 500 emails per day\n\n");
+                if ($i === 300) {
+                    print("\n\nYou can't send more than 300 emails per day\n\n");
                     die();
                 }
 
