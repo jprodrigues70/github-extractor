@@ -1,4 +1,5 @@
 # Automatização extremamente simples de envio de e-mails utilizando Gmail.
+## APENAS PARA PROPÓSITO DE ESTUDO
 
 Esse script utiliza o Gmail, então você vai precisar autorizar a execução do script na conta que enviará os e-mails. Recomendo que não utilize sua conta pessoal de maneira alguma. Você vai ter que desativar a autenticação em 2 fatores, e depois liberar o acesso de 'less secure apps' aqui https://myaccount.google.com/u/0/lesssecureapps.
 
